@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>NotifySlot.in - The Co-WIN Slot Notifier</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> -->
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+  <!-- <script src="https://www.google.com/recaptcha/api.js"></script> -->
+  <script src="https://www.google.com/recaptcha/api.js?render=6Lf-FNcaAAAAAMoNuKKhdbrSObhROeE5CrfZitFg"></script>
+  <link rel="icon" class="fa fa-bell" type="image/gif" sizes="16x16">
+
+
+  <style>
+    /* Extra small devices (phones, 600px and down) */
+    @media only screen and (max-width: 600px) {
+      .card {
+
+        position: unset !important;
+        transform-style: unset !important;
+
+      }
+    }
+
+    /* Small devices (portrait tablets and large phones, 600px and up) */
+    @media only screen and (min-width: 600px) {}
+
+    /* Medium devices (landscape tablets, 768px and up) */
+    @media only screen and (min-width: 768px) {}
+
+    /* Large devices (laptops/desktops, 992px and up) */
+    @media only screen and (min-width: 992px) {}
+
+    /* Extra large devices (large laptops and desktops, 1200px and up) */
+    @media only screen and (min-width: 1200px) {}
+
+    .copyright-reserved {
+      /* border-top: 1px solid #303030; */
+      padding: 16px 0px 28px;
+      color: #b2b2b2;
+    }
+
+
+    /* .grecaptcha-badge{
+      display: none !important;
+    } */
+    .navbar-default {
+      background: linear-gradient(to right, #141e30, #243b55);
+      border-color: unset;
+    }
+
+    .navbar-header>a {
+      color: #FFFFFF;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(to right, #141e30, #243b55);
+
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    .form-group>label,
+    p {
+      color: #FFFFFF;
+      font-family: Arial, sans-serif;
+    }
+
+    .header {
+      text-align: center;
+
+    }
+
+
+    .card-container {
+      perspective: 1200px;
+    }
+
+    .card {
+      margin: 0 auto;
+      height: 500px;
+      width: 500px;
+      max-width: 80%;
+      position: relative;
+      border-radius: 25px;
+      transition: all 1s ease;
+      transform-style: preserve-3d;
+      box-shadow: 1px 3px 3px rgba(0, 0, 0, 0.2)
+    }
+
+    .rotated {
+      transform: rotateY(-180deg);
+    }
+
+    .card-contents {
+      width: 100%;
+      height: 100%;
+      border-radius: 25px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      /* //text-align: center; */
+      position: absolute;
+      top: 0;
+      left: 0;
+      backface-visibility: hidden;
+
+    }
+
+    .card-depth {
+      transform: translateZ(100px) scale(0.98);
+      perspective: inherit;
+      width: 70%;
+
+    }
+
+    .card-front {
+      background: linear-gradient(to top left, #3a6186, #89253e);
+      transform-style: preserve-3d;
+    }
+
+    button {
+
+      background: linear-gradient(to right, #141e30, #243b55) !important;
+      border-color: #3a6186 !important;
+      transform-style: preserve-3d !important;
+
+    }
+
+    .card-back {
+      transform: rotateY(180deg);
+      background: linear-gradient(to top left, #ffa17f, #00223e);
+      transform-style: preserve-3d;
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="navbar navbar-default">
+    <div class="container-fluid ">
+      <div class="navbar-header">
+        <a class="navbar-brand" style="color: #FFFFFF;
+      font-family: Arial, sans-serif;
+    ">NotifySlot.in - The Co-WIN Slot Notifier <i class="fa fa-bell" aria-hidden="true"></i></a>
+      </div>
+
+    </div>
+  </nav>
+
+
+  <div class="container-fluid">
+    <div class="row">
+
+      <div
+        class="col-lg-6 d-lg-flex flex-lg-column justify-content-center align-items-stretch pt-5 pt-lg-0 order-2 order-lg-1 aos-init aos-animate"
+        data-aos="fade-up">
+        <div>
+          <!-- <h1>App landing page template</h1> -->
+          <h2>We will notify you over Email once there are Co-win vaccine solts available in the district you selected.</h2>
+          <br>
+          <br>
+
+          <h3> Liked our work ? feel free to <a class="button btn"
+              style=" width: 100px; background-color: #89253e;  border-color: #3a6186 !important;
+              transform-style: preserve-3d !important;text-align: center; font-weight: 300; padding: 11px 0px; color: white; font-size: 12px; display: inline-block; text-decoration: none; "
+              href='https://pmny.in/HINK6Fee48vx' target="_blank"> Donate </a>
+            we ensure 60% of your donation will be used in covid related relief works.
+          </h3>
+          <br>
+          <br>
+
+        </div>
+      </div>
+      <div
+        class="col-lg-6 d-lg-flex flex-lg-column align-items-stretch order-1 order-lg-2 hero-img aos-init aos-animate"
+        data-aos="fade-up">
+        <div class="cards-wrapper">
+          <div class="card-container">
+            <div class="card">
+              <div class="card-contents card-front">
+                <div class="card-depth">
+                  <h2>Fill your details</h2>
+                  <hr>
+                  <form id="send-data">
+                    <div class="form-group">
+                      <label for="exampleFormControlInput1">Name</label>
+                      <input type="text" class="form-control" id="name" name="name" placeholder="John Smith" required>
+
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleFormControlInput1">Email address</label>
+                      <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com"
+                        required>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleFormControlSelect1">District Select</label>
+                      <select style="    width: 100% !important;" class="form-control" name="district-select"
+                        id="district-select" required>
+                        <option selected>Select</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleFormControlInput1">Phone No (Optional)</label>
+                      <input type="text" class="form-control" id="phone" name="phone" placeholder="0000000000" >
+                    </div>
+
+                    <div class="form-group button"
+                      style="      justify-content: center;                    align-items: center;">
+                      <!-- <button type="button" class="btn btn-primary">Submit</button> -->
+                      <button class=" btn btn-primary" type='submit'>Submit</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="row" style="margin-top: 9px;background: #191919;">
+      <div class="copyright-reserved">
+
+        <div class="col-lg-12">
+          <div class="copyright-text">
+            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            Copyright &copy;
+            <script>document.write(new Date().getFullYear());</script> All rights reserved | This
+            website is made with <i class="fa fa-heart-o" aria-hidden="true" style="color: #cc2424;"></i> by <a
+              href="https://www.linkedin.com/in/hemang-vora-3b9402162/" target="_blank">Hemang</a>
+            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+          </div>
+          <div class="payment-pic">
+            <!-- <img src="images/payment-method.png" alt=""> -->
+
+          </div>
+        </div>
+
+      </div>
+
+
+    </div>
+
+    <script type="text/javascript">
+      $(document).ready(function () {
+
+        $.getJSON("https://api.demo.co-vin.in/api/v2/admin/location/states", function (data) {
+
+          if (data.states.length > 0) {
+
+            $(data.states).each(function (i, v) {
+
+              $.ajax({
+                url: "https://api.demo.co-vin.in/api/v2/admin/location/districts/" + v.state_id,
+                success: function (dataDistrict) {
+                  $(dataDistrict.districts).each(function (ii, va) {
+
+                    $("#district-select").append(`<option value='${va.district_id}'>${va.district_name}</option>`)
+                  });
+                }
+              })
+            })
+
+          }
+
+        })
+        $("select").select2();
+
+
+      });
+
+    </script>
+    <script type="text/javascript">
+      document.getElementById("send-data").addEventListener('submit', runverify);
+
+      function runverify(e) {
+        e.preventDefault();
+        runcaptcha()
+      }
+
+      function runcaptcha() {
+        grecaptcha.execute('6Lf-FNcaAAAAAMoNuKKhdbrSObhROeE5CrfZitFg', { action: 'homepage' }).then(function (token) {
+          const Name = document.querySelector("#name").value
+          const Email = document.querySelector("#email").value
+          const District = document.querySelector("#district-select").value
+          const Phone = document.querySelector("#phone").value
+          const captcha = token
+          sendData(Name, Email, District, Phone, captcha)
+        });
+      }
+      function sendData(Name, Email, District, Phone, captcha) {
+        const dataS = JSON.stringify({ Name: Name, Email: Email, District: District, Phone: Phone, captcha: captcha })
+        console.log(dataS)
+        fetch('/captcha', {
+          method: 'POST',
+          headers: {
+            'Accept': 'Application/json, text/plain, */*',
+            'Content-Type': 'Application/json'
+          },
+          body: dataS
+        }).then((res) => res.json())
+          .then((data) => {
+            if (data.response != undefined) {
+              if (data.response == "Success") {
+                fetch('/submit', {
+                  method: 'POST',
+                  headers: {
+                    'Accept': 'Application/json, text/plain, */*',
+                    'Content-Type': 'Application/json'
+                  },
+                  body: dataS
+                }).then((res1) => res1.json())
+                  .then((data1) => {
+                    if (data1.response != undefined) {
+                      if (data1.response == "Success") {
+                        alert("Your data is saved we will notify you when slots are available")
+                      
+                      }
+                    }
+                  })
+              } else {
+                alert(data.response)
+              }
+            }
+          })
+
+      }
+    </script>
+</body>
+
+</html>
