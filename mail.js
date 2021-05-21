@@ -16,7 +16,7 @@ module.exports.sendMail = (map, nodemailer) => {
       var appendhtml = "";
       let c = 1;
       for (let centerObj of map.get(id).get("centerDetail")) {
-        console.log(centerObj)
+       // console.log(centerObj)
         appendhtml += `<div style="border:1px solid white;height:250px;width:200px;padding:20px;float:left;"> ${c}) Center Name : ${centerObj.name} <br> Address : ${centerObj.address}, ${centerObj.district}, ${centerObj.state}<br>Date :${centerObj.date}<br> Available Capacity : ${centerObj.capacity} <br> Dose 1 Slots : ${centerObj.dose1}<br> Dose 2 Slots : ${centerObj.dose2}<br> Fee : ${centerObj.fee} <br> Age Group : ${centerObj.ageG} <br> Vaccine Type : ${centerObj.vaccine} </div>`
         c = c + 1;
       }
@@ -115,7 +115,7 @@ module.exports.sendMail = (map, nodemailer) => {
       }
     }
   }
-  console.log("Entering SendMail Method Mail.js File")
+  console.log("Exit SendMail Method Mail.js File")
 
 
 }
