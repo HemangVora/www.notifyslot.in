@@ -126,10 +126,10 @@ res.status(200)
    var myquery = { email: req.params.email };
   var newvalues = {$set: {notify: false} };
   var db = mongoUtil.getDb();
-  db.collection("users").updateMany(myquery, newvalues, function(err, res) {
+  db.collection("users").updateMany(myquery, newvalues, function(err, relts) {
     if (err) throw err;
-    console.log(res.result.nModified + " document(s) updated");
-    
+    console.log(relts.result.nModified + " document(s) updated");
+    res.render('index')
   });
 }
   //  res.json({})
