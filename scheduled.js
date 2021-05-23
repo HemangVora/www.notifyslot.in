@@ -287,7 +287,7 @@ module.exports.Calculate = (db) => {
       async.map(urls, httpGet, function (err, resp) {
         if (err) return console.log(err);
 
-        //console.log(resp);
+        console.log(resp);
 
         if (resp.length > 0) {
           for (let i = 0; i < resp.length; i++) {
