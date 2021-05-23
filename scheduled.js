@@ -42,8 +42,8 @@ module.exports.Calculate = (db) => {
           var transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
-              user: 'dharm.joshi9899@gmail.com',
-              pass: 'Aer0PlanE@89'
+              user: 'notify289@gmail.com',
+              pass: 'menotify@123'
             }
           });
 
@@ -71,7 +71,7 @@ module.exports.Calculate = (db) => {
             
           emailPromiseArray.push(
             sendMail({
-              from: 'dharm.joshi9899@gmail.com',
+              from: 'notify289@gmail.com',
               to: userDetail.email,
               subject: `${capitalizeFirstLetter(userDetail.name)} Vaccination slots available in cowin`,
               html: `<style>
