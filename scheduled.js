@@ -294,7 +294,7 @@ module.exports.Calculate = (db) => {
             //first loop for district wise centers array
             let centerArr = resp[i];
 
-            if (centerArr.centers.length > 0) {
+            if (centerArr.centers !=[]) {
 
               for (let cObj of centerArr.centers) {
 
