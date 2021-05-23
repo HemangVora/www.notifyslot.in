@@ -293,10 +293,12 @@ module.exports.Calculate = (db) => {
           for (let i = 0; i < resp.length; i++) {
             //first loop for district wise centers array
             let centerArr = resp[i];
+let arr = centerArr.centers;
+console.log(arr)
 
-            if (centerArr.centers !=[]) {
+            if (arr!=undefined &&  arr != [] && arr != null) {
 
-              for (let cObj of centerArr.centers) {
+              for (let cObj of arr) {
 
 
                 let sessionArray = cObj.sessions;
