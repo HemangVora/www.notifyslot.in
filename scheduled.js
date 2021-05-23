@@ -67,14 +67,14 @@ module.exports.Calculate = (db) => {
           function capitalizeFirstLetter(string) {
             return string.charAt(0).toUpperCase() + string.slice(1);
           }
-          if(value.get(userDetail.district + ":" + userDetail.age + ":" + userDetail.dose)!=undefined){
-            
-          emailPromiseArray.push(
-            sendMail({
-              from: 'notify289@gmail.com',
-              to: userDetail.email,
-              subject: `${capitalizeFirstLetter(userDetail.name)} Vaccination slots available in cowin`,
-              html: `<style>
+          if (value.get(userDetail.district + ":" + userDetail.age + ":" + userDetail.dose) != undefined) {
+
+            emailPromiseArray.push(
+              sendMail({
+                from: 'notify289@gmail.com',
+                to: userDetail.email,
+                subject: `${capitalizeFirstLetter(userDetail.name)} Vaccination slots available in cowin`,
+                html: `<style>
               .even {
                 background: transparent !important;
                 color: white !important;
@@ -140,10 +140,10 @@ module.exports.Calculate = (db) => {
               </div>
     
               `
-            })
-          )
-          
-        }
+              })
+            )
+
+          }
         }
         //console.log(value)  
         mail.sendMail(emailPromiseArray, nodemailer);
@@ -267,9 +267,12 @@ module.exports.Calculate = (db) => {
       let urls = []
 
       function httpGet(url, callback) {
-        const options = {
+        let options = {
           url: url,
-          json: true
+          headers: {
+            //Host: 'cdn-api.co-vin.in',
+            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36"
+          }, json: true
         };
         request(options,
           function (err, res, body) {
@@ -293,10 +296,10 @@ module.exports.Calculate = (db) => {
           for (let i = 0; i < resp.length; i++) {
             //first loop for district wise centers array
             let centerArr = resp[i];
-let arr = centerArr.centers;
-console.log(arr)
+            let arr = centerArr.centers;
+            console.log(arr)
 
-            if (arr!=undefined &&  arr != [] && arr != null) {
+            if (arr != undefined && arr != [] && arr != null) {
 
               for (let cObj of arr) {
 
