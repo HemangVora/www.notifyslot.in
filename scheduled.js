@@ -139,7 +139,7 @@ module.exports.Calculate = (db) => {
               </div>
     <div style="bottom:0;position:absolute;">
     
-              If you want to disable this Email notification <a style=""href='http://localhost:3000/disable/${userDetail.email}'>Click Here</a></div>
+              If you want to disable this Email notification <a style=""href='http://www.notifyslot.in/disable/${userDetail.email}'>Click Here</a></div>
               </div>
     
               `

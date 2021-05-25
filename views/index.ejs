@@ -281,14 +281,14 @@
     <script type="text/javascript">
       $(document).ready(function () {
 
-        $.getJSON("https://api.demo.co-vin.in/api/v2/admin/location/states", function (data) {
+        $.getJSON("https://cdn-api.co-vin.in/api/v2/admin/location/states", function (data) {
 
           if (data.states.length > 0) {
 
             $(data.states).each(function (i, v) {
 
               $.ajax({
-                url: "https://api.demo.co-vin.in/api/v2/admin/location/districts/" + v.state_id,
+                url: "https://cdn-api.co-vin.in/api/v2/admin/location/districts/" + v.state_id,
                 success: function (dataDistrict) {
                   $(dataDistrict.districts).each(function (ii, va) {
 
