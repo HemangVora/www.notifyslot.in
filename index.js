@@ -79,7 +79,12 @@ mongoUtil.connectToServer(function (err, client) {
 
 
     try {
-      let rs = db.collection('users').insertOne(insertObj);
+
+	db.collection('users').find({}).toArray(function(err,res){
+console.log(res);
+console.log('*********');
+})      
+	let rs = db.collection('users').insertOne(insertObj);
       let rs1 = db.collection('district').find({ district: insertObj.district }).toArray(function (err, result) {
         if (err) throw err;
         //console.log(result);

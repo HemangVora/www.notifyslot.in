@@ -1,5 +1,5 @@
 const MongoClient = require( 'mongodb' ).MongoClient;
-const url = "mongodb+srv://todoAppUser:3yR2kU6KiKzjufb@cluster0.cx25r.mongodb.net/notify?retryWrites=true&w=majority";
+const url = "mongodb://RootAdmin:12345@localhost/admin?retryWrites=true&w=majority";
 
 var _db;
 
