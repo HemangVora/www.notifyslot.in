@@ -80,10 +80,7 @@ mongoUtil.connectToServer(function (err, client) {
 
     try {
 
-	db.collection('users').find({}).toArray(function(err,res){
-console.log(res);
-console.log('*********');
-})      
+	
 	let rs = db.collection('users').insertOne(insertObj);
       let rs1 = db.collection('district').find({ district: insertObj.district }).toArray(function (err, result) {
         if (err) throw err;
@@ -112,7 +109,7 @@ console.log('*********');
 
 
   app.get('/startEmailService', (req, res) => {
-    const job = schedule.scheduleJob('* * * * *', function () {
+    const job = schedule.scheduleJob('*/6 * * * *', function () {
       console.log('Running scheduler for time ' + new Date());
       var db = mongoUtil.getDb();
       scheduled.Calculate(db);

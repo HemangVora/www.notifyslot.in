@@ -12,6 +12,8 @@ module.exports.Calculate = (db) => {
       if (err1) throw err1;
       //console.log(result)
       var today = new Date();
+      today.setHours(today.getHours() + 5)
+      today.setMinutes(today.getMinutes() + 30)
       var dd = today.getDate();
 
       var mm = today.getMonth() + 1;
@@ -30,7 +32,8 @@ module.exports.Calculate = (db) => {
         console.log("--------------------------------------------------------------")
         var currentdate = new Date();
 
-
+        currentdate.setHours( currentdate.getHours() + 5)
+        currentdate.setMinutes( currentdate.getMinutes() + 30)
         var options = { hour12: true };
 
         var current = currentdate.toLocaleString('en-IN', options);
