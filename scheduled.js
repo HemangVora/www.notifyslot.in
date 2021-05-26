@@ -43,11 +43,15 @@ module.exports.Calculate = (db) => {
         let emailPromiseArray = [];
         for (let userDetail of UserCollectionResult) {
           var transporter = nodemailer.createTransport({
-            service: 'gmail',
+            host: 'smtp.notifyslot.in',
+            port:'587',
+            secure: false,
+            
             auth: {
-              user: 'notify289@gmail.com',
-              pass: 'menotify@123'
-            }
+              user: 'alert@notifyslot.in',
+              pass: 'M#IPiJTZ2'
+            },
+            tls: {rejectUnauthorized: false, secureProtocol: "TLSv1_method" }
           });
 
 
@@ -63,7 +67,7 @@ module.exports.Calculate = (db) => {
                   resolve(response);
                 }
 
-                transport.close();
+                //transport.close();
               });
             })
           }
@@ -74,7 +78,7 @@ module.exports.Calculate = (db) => {
 
             emailPromiseArray.push(
               sendMail({
-                from: 'notify289@gmail.com',
+                from: 'alert@notifyslot.in',
                 to: userDetail.email,
                 subject: `${capitalizeFirstLetter(userDetail.name)} Vaccination slots available in cowin`,
                 html: `<style>
@@ -82,7 +86,9 @@ module.exports.Calculate = (db) => {
                 background: transparent !important;
                 color: white !important;
               }
-            
+            .im{
+              color:white !important;
+            }
               thead {
                 color: #FFFFFF;
                 font-family: Arial, sans-serif;
@@ -128,6 +134,9 @@ module.exports.Calculate = (db) => {
                   We hope you and your family members are safe at home, In this tough time we all are together in this.<br><br>
             
                   Here is a list of vaccination centers that are having available vaccine slots on ${current}. Please get vaccinated soon.
+                  <br>
+                  <br>
+                  <a href="https://www.cowin.gov.in/home" style="color:wheat;">Click Here</a> to book vaccination slots.
                   <br>
                   <br>
                   ${value.get(userDetail.district + ":" + userDetail.age + ":" + userDetail.dose)}
@@ -293,14 +302,14 @@ module.exports.Calculate = (db) => {
       async.map(urls, httpGet, function (err, resp) {
         if (err) return console.log(err);
 
-        console.log(resp);
+       // console.log(resp);
 
         if (resp.length > 0) {
           for (let i = 0; i < resp.length; i++) {
             //first loop for district wise centers array
             let centerArr = resp[i];
             let arr = centerArr.centers;
-            console.log(arr)
+           // console.log(arr)
 
             if (arr != undefined && arr != [] && arr != null) {
 
@@ -316,19 +325,19 @@ module.exports.Calculate = (db) => {
                       if (finalMap.has(districtArray[i] + ":" + x.min_age_limit + ":Dose 1")) {
                         let str = finalMap.get(districtArray[i] + ":" + x.min_age_limit + ":Dose 1")
                         str += `<div style="border:1px solid white;height:250px;width:200px;padding:20px;float:left;"> => 
-                        Center Name : ${cObj.name} <br> Address : ${cObj.address}, ${cObj.district},
-                         ${cObj.state_name}<br>Date :${x.date}<br> Available Capacity : ${x.available_capacity} <br>
-                          Dose 1 Slots : ${x.available_capacity_dose1}<br> Fee : ${cObj.fee_type} <br>
-                           Age Group : ${x.min_age_limit} <br> Vaccine Type : ${x.vaccine} </div>`;
+                        <b>Center Name :</b> ${cObj.name} <br> <b>Address :</b> ${cObj.address}, ${cObj.district},
+                         ${cObj.state_name}<br><b>Date :</b>${x.date}<br> <b>Available Capacity :</b> ${x.available_capacity} <br>
+                          Dose 1 Slots : ${x.available_capacity_dose1}<br> <b>Fee :</b> ${cObj.fee_type} <br>
+                           <b>Age Group :</b> ${x.min_age_limit} <br> <b>Vaccine Type :</b> ${x.vaccine} </div>`;
 
                         finalMap.set(districtArray[i] + ":" + x.min_age_limit + ":Dose 1", str)
                       }
                       else {
                         let s1 = `<div style="border:1px solid white;height:250px;width:200px;padding:20px;float:left;"> => 
-                        Center Name : ${cObj.name} <br> Address : ${cObj.address}, ${cObj.district},
-                         ${cObj.state_name}<br>Date :${x.date}<br> Available Capacity : ${x.available_capacity} <br>
-                          Dose 1 Slots : ${x.available_capacity_dose1}<br> Fee : ${cObj.fee_type} <br>
-                           Age Group : ${x.min_age_limit} <br> Vaccine Type : ${x.vaccine} </div>`;
+                        <b>Center Name :</b> ${cObj.name} <br> <b>Address :</b> ${cObj.address}, ${cObj.district},
+                         ${cObj.state_name}<br><b>Date :</b>${x.date}<br> <b>Available Capacity :</b> ${x.available_capacity} <br>
+                          Dose 1 Slots : ${x.available_capacity_dose1}<br> <b>Fee :</b> ${cObj.fee_type} <br>
+                           <b>Age Group :</b> ${x.min_age_limit} <br> <b>Vaccine Type :</b> ${x.vaccine} </div>`;
 
                         finalMap.set(districtArray[i] + ":" + x.min_age_limit + ":Dose 1", s1)
 
@@ -338,19 +347,19 @@ module.exports.Calculate = (db) => {
                       if (finalMap.has(districtArray[i] + ":" + x.min_age_limit + ":Dose 2")) {
                         let str = finalMap.get(districtArray[i] + ":" + x.min_age_limit + ":Dose 2")
                         str += `<div style="border:1px solid white;height:250px;width:200px;padding:20px;float:left;"> => 
-                        Center Name : ${cObj.name} <br> Address : ${cObj.address}, ${cObj.district},
-                         ${cObj.state_name}<br>Date :${x.date}<br> Available Capacity : ${x.available_capacity} <br>
-                          Dose 2 Slots : ${x.available_capacity_dose2}<br> Fee : ${cObj.fee_type} <br>
-                           Age Group : ${x.min_age_limit} <br> Vaccine Type : ${x.vaccine} </div>`;
+                        <b>Center Name :</b> ${cObj.name} <br> <b>Address :</b> ${cObj.address}, ${cObj.district},
+                         ${cObj.state_name}<br><b>Date :</b>${x.date}<br> <b>Available Capacity :</b> ${x.available_capacity} <br>
+                          <b>Dose 2 Slots :</b> ${x.available_capacity_dose2}<br> <b>Fee :</b> ${cObj.fee_type} <br>
+                           <b>Age Group :</b> ${x.min_age_limit} <br> <b>Vaccine Type :</b> ${x.vaccine} </div>`;
 
                         finalMap.set(districtArray[i] + ":" + x.min_age_limit + ":Dose 2", str)
                       }
                       else {
                         let s1 = `<div style="border:1px solid white;height:250px;width:200px;padding:20px;float:left;"> => 
-                        Center Name : ${cObj.name} <br> Address : ${cObj.address}, ${cObj.district},
-                         ${cObj.state_name}<br>Date :${x.date}<br> Available Capacity : ${x.available_capacity} <br>
-                          Dose 2 Slots : ${x.available_capacity_dose2}<br> Fee : ${cObj.fee_type} <br>
-                           Age Group : ${x.min_age_limit} <br> Vaccine Type : ${x.vaccine} </div>`;
+                        <b>Center Name :</b> ${cObj.name} <br> <b>Address :</b> ${cObj.address}, ${cObj.district},
+                         ${cObj.state_name}<br><b>Date :</b>${x.date}<br> <b>Available Capacity :</b> ${x.available_capacity} <br>
+                          <b>Dose 2 Slots :</b> ${x.available_capacity_dose2}<br> <b>Fee :</b> ${cObj.fee_type} <br>
+                           <b>Age Group :</b> ${x.min_age_limit} <br> <b>Vaccine Type :</b> ${x.vaccine} </div>`;
 
                         finalMap.set(districtArray[i] + ":" + x.min_age_limit + ":Dose 2", s1)
 

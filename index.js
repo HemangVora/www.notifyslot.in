@@ -109,7 +109,8 @@ mongoUtil.connectToServer(function (err, client) {
 
 
   app.get('/startEmailService', (req, res) => {
-    const job = schedule.scheduleJob('*/6 * * * *', function () {
+    console.log('called /startEmailService')
+    const job = schedule.scheduleJob('* * * * *', function () {
       console.log('Running scheduler for time ' + new Date());
       var db = mongoUtil.getDb();
       scheduled.Calculate(db);
