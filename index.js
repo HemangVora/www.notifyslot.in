@@ -73,7 +73,7 @@ mongoUtil.connectToServer(function (err, client) {
     insertObj.phone = req.body.Phone;
     insertObj.age = req.body.age;
     insertObj.dose = req.body.dose;
-
+    insertObj.isActive=true;
     // console.log(insertObj)
     // console.log(req.body)
 
@@ -117,7 +117,31 @@ mongoUtil.connectToServer(function (err, client) {
     });
     res.status(200)
   });
-
+  app.get('/updateNotifyStatus', (req, res) => {
+    console.log('called /updateNotifyStatus')
+    const job = schedule.scheduleJob('0 1 * * *', function () {
+      console.log('Running scheduler for updateNotifyStatus  time ' + new Date());
+      var db = mongoUtil.getDb();
+      var myquery = { notify:false };
+      var newvalues = { $set: { notify: true} };
+      db.collection("users").updateMany(myquery, newvalues, function (err, relts) {
+        if (err) throw err;
+        console.log(relts.result.nModified + " document(s) updated");
+      
+      });
+    });
+    res.status(200)
+  });
+  app.get('/setIsActive', (req, res) => {
+    console.log('called /setIsActive')
+      var db = mongoUtil.getDb();
+      var myquery = { notify:true };
+      var newvalues = { $set: { isActive: true} };
+      db.collection("users").updateMany({}, newvalues, function (err, relts) {
+        if (err) throw err;
+        console.log(relts.result.nModified + " document(s) updated");
+      })
+  });
 
   app.get('/disable/:email', function (req, res) {
     console.log(req.params.email)
@@ -126,7 +150,7 @@ mongoUtil.connectToServer(function (err, client) {
     }
     else {
       var myquery = { email: req.params.email };
-      var newvalues = { $set: { notify: false } };
+      var newvalues = { $set: { notify: false,isActive:false } };
       var db = mongoUtil.getDb();
       db.collection("users").updateMany(myquery, newvalues, function (err, relts) {
         if (err) throw err;
@@ -136,7 +160,7 @@ mongoUtil.connectToServer(function (err, client) {
     }
     //  res.json({})
   })
-  // app.get('*',(req,res)=>res.render('error'))
+   app.get('*',(req,res)=>res.render('error'))
   app.listen(port, () => {
 
     console.log(`Server listening on the port::${port}`);

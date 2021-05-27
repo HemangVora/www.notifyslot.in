@@ -6,7 +6,7 @@ var nodemailer = require('nodemailer');
 const mail = require('./mail')
 module.exports.Calculate = (db) => {
   console.log('inside scheduled file')
-  let rs = db.collection('users').find({ notify: true }).toArray(function (err, UserCollectionResult) {
+  let rs = db.collection('users').find({ notify: true,isActive:true }).toArray(function (err, UserCollectionResult) {
     db.collection('district').find({}).toArray(function (err1, distresult) {
       if (err) throw err;
       if (err1) throw err1;
@@ -48,8 +48,8 @@ module.exports.Calculate = (db) => {
             secure: false,
             
             auth: {
-              user: 'alert@notifyslot.in',
-              pass: 'M#IPiJTZ2'
+              user: 'support@notifyslot.in',
+              pass: 'PlX!TdJ6'
             },
             tls: {rejectUnauthorized: false, secureProtocol: "TLSv1_method" }
           });
@@ -78,7 +78,7 @@ module.exports.Calculate = (db) => {
 
             emailPromiseArray.push(
               sendMail({
-                from: 'alert@notifyslot.in',
+                from: 'support@notifyslot.in',
                 to: userDetail.email,
                 subject: `${capitalizeFirstLetter(userDetail.name)} Vaccination slots available in cowin`,
                 html: `<style>
