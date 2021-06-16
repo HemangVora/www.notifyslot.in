@@ -297,6 +297,7 @@ module.exports.Calculate = (db) => {
         console.log("Making Url district id :: " + obj.district)
         districtArray.push(obj.district);
         let cowinUrl = `https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id=${obj.district}&date=${today}`
+       console.log("Url :: "+cowinUrl) 
         urls.push(cowinUrl)
       }
       async.map(urls, httpGet, function (err, resp) {
