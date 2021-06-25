@@ -1,11 +1,11 @@
 var mongoUtil = require('./connect');
 
-module.exports.sendMail = (emailPromiseArray, nodemailer) => {
+module.exports.sendMail = (emailPromiseArray, db) => {
   console.log("Entering SendMail Method Mail.js File")
 
       Promise.all(emailPromiseArray).then((result) => {
         console.log(result)
-        var db =mongoUtil.getDb();
+     
         let acceptedArr =[];
         if(result.length>0){
           for(let obj of result){
