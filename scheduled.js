@@ -43,10 +43,10 @@ module.exports.Calculate = (db) => {
         let emailPromiseArray = [];
         for (let userDetail of UserCollectionResult) {
           var transporter = nodemailer.createTransport({
-            host: 'smtp.notifyslot.in',
+            host: 'us2.smtp.mailhostbox.com',
             port:'587',
             secure: false,
-            
+            logger:true,
             auth: {
               user: 'admin@notifyslot.in',
               pass: 'Wn#vUy*3'
