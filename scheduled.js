@@ -43,8 +43,8 @@ module.exports.Calculate = (db) => {
         let emailPromiseArray = [];
         for (let userDetail of UserCollectionResult) {
           var transporter = nodemailer.createTransport({
-            host: 'us2.smtp.mailhostbox.com',
-            port:'587',
+            host: 'us2.pop.mailhostbox.com',
+            port:'995',
             secure: false,
             logger:true,
             auth: {
