@@ -48,8 +48,8 @@ module.exports.Calculate = (db) => {
             secure: false,
             logger:false,
             auth: {
-              user: 'alert@notifyslot.in',
-              pass: 'EodbB%T9'
+              user: 'admin@notifyslot.in',
+              pass: 'Wn#vUy*3'
             }, 
             tls: {rejectUnauthorized: false, secureProtocol: "TLSv1_method" }
           });
