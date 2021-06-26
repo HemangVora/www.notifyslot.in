@@ -41,21 +41,24 @@ module.exports.Calculate = (db) => {
         current = current.replace(/\//g, '-');
 
         let emailPromiseArray = [];
+        var transporter = nodemailer.createTransport({
+          pool: true,
+          maxConnections: 1,
+          host: 'smtp.notifyslot.in',
+          port:'587',
+          secure: false,
+          logger:false,
+          auth: {
+            user: 'alertmail@notifyslot.in',
+            pass: 'jCsfGYy3'
+          }, 
+          tls: {rejectUnauthorized: false, secureProtocol: "TLSv1_method" }
+        });
         for (let userDetail of UserCollectionResult) {
-          var transporter = nodemailer.createTransport({
-            host: 'smtp.notifyslot.in',
-            port:'587',
-            secure: false,
-            logger:false,
-            auth: {
-              user: 'admin@notifyslot.in',
-              pass: 'Wn#vUy*3'
-            }, 
-            tls: {rejectUnauthorized: false, secureProtocol: "TLSv1_method" }
-          });
+          
 
 
-          function sendMail(mail) {
+          function sendMail(mail,db) {
 
             return new Promise((resolve, reject) => {
               transporter.sendMail(mail, function (error, response) {
@@ -64,6 +67,21 @@ module.exports.Calculate = (db) => {
                   reject(error);
                 } else {
                   console.log("Message sent: " + JSON.stringify(response));
+                  let acceptedArr =[];
+                  if(response.length>0){
+                    for(let obj of response){
+                      if(obj.accepted!=undefined){
+                        acceptedArr.push(obj.accepted[0])
+                      }
+                    }
+                    console.log(acceptedArr)
+                    var newvalues = { $set: { notify: false } }
+                    db.collection('users').updateMany({email: { $in: acceptedArr}}, newvalues, function (err, res) {
+                      if (err) throw err;
+                      console.log(res.result.nModified + " document updated");
+            
+                    });
+                  }
                   resolve(response);
                 }
 
@@ -78,7 +96,7 @@ module.exports.Calculate = (db) => {
 
             emailPromiseArray.push(
               sendMail({
-                from: 'admin@notifyslot.in',
+                from: 'alertmail@notifyslot.in',
                 to: userDetail.email,
                 subject: `${capitalizeFirstLetter(userDetail.name)} Vaccination slots available in cowin`,
                 html: `<style>
