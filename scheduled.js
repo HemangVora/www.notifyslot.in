@@ -44,15 +44,13 @@ module.exports.Calculate = (db) => {
         var transporter = nodemailer.createTransport({
           pool: true,
           maxConnections: 1,
-          host: 'smtp.notifyslot.in',
-          port:'587',
-          secure: false,
-          logger:false,
+          host: "email-smtp.ap-south-1.amazonaws.com",
+          port: 587,
+          secure: false, // true for 465, false for other ports
           auth: {
-            user: 'alertmail@notifyslot.in',
-            pass: 'jCsfGYy3'
-          }, 
-          tls: {rejectUnauthorized: false, secureProtocol: "TLSv1_method" }
+            user: "AKIA5I5Z7ZLKXDHPA66D", // generated ethereal user
+            pass: "BBCo/xEdvuD4C53w4eF+cBGSx+S+i39UFxZpNBajOyvG", // generated ethereal password
+          }
         });
         for (let userDetail of UserCollectionResult) {
           
@@ -67,21 +65,7 @@ module.exports.Calculate = (db) => {
                   reject(error);
                 } else {
                   console.log("Message sent: " + JSON.stringify(response));
-                  let acceptedArr =[];
-                  if(response.length>0){
-                    for(let obj of response){
-                      if(obj.accepted!=undefined){
-                        acceptedArr.push(obj.accepted[0])
-                      }
-                    }
-                    console.log(acceptedArr)
-                    var newvalues = { $set: { notify: false } }
-                    db.collection('users').updateMany({email: { $in: acceptedArr}}, newvalues, function (err, res) {
-                      if (err) throw err;
-                      console.log(res.result.nModified + " document updated");
-            
-                    });
-                  }
+                  
                   resolve(response);
                 }
 
@@ -96,7 +80,7 @@ module.exports.Calculate = (db) => {
 
             emailPromiseArray.push(
               sendMail({
-                from: 'alertmail@notifyslot.in',
+                from: 'support@notifyslot.in',
                 to: userDetail.email,
                 subject: `${capitalizeFirstLetter(userDetail.name)} Vaccination slots available in cowin`,
                 html: `<style>
