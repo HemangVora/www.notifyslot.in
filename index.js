@@ -142,7 +142,9 @@ mongoUtil.connectToServer(function (err, client) {
         console.log(relts.result.nModified + " document(s) updated");
       })
   });
-
+app.get('/sitemap.xml', function(req, res) {
+  res.sendFile(__dirname + '/sitemap.xml');
+  });
   app.get('/disable/:email', function (req, res) {
     console.log(req.params.email)
     if (req.params.email.toString().indexOf("@") == -1 || req.params.email.toString().indexOf(".") == -1) {
