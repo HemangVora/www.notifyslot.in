@@ -30,6 +30,23 @@ var transporter = nodemailer.createTransport({
 function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
+function sendMail(mail,db) {
+
+  return new Promise((resolve, reject) => {
+    transporter.sendMail(mail, function (error, response) {
+      if (error) {
+        console.log(error);
+        reject(error);
+      } else {
+        console.log("Message sent: " + JSON.stringify(response));
+        
+        resolve(response);
+      }
+
+      //transport.close();
+    });
+  })
+}
 port = process.env.PORT || 3000;
 app.use(compression())
 app.use(bodyParser.urlencoded({ extended: true }));
