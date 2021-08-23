@@ -6,6 +6,8 @@ const expressVisitorCounter = require('express-visitor-counter');
 var favicon = require('serve-favicon')
 const mail = require('./mail')
 const app = express()
+var nodemailer = require('nodemailer');
+
 
 const scheduled = require('./scheduled')
 var mongoUtil = require('./connect');
