@@ -4,6 +4,7 @@ const request = require('request')
 const expressSession = require('express-session');
 const expressVisitorCounter = require('express-visitor-counter');
 var favicon = require('serve-favicon')
+const mail = require('./mail')
 const app = express()
 
 const scheduled = require('./scheduled')
@@ -12,8 +13,21 @@ var mongoUtil = require('./connect');
 const path = require('path');
 const schedule = require('node-schedule');
 const bodyParser = require("body-parser");
-
-
+let emailPromiseArray = [];
+var transporter = nodemailer.createTransport({
+  pool: true,
+  maxConnections: 1,
+  host: "email-smtp.ap-south-1.amazonaws.com",
+  port: 587,
+  secure: false, // true for 465, false for other ports
+  auth: {
+    user: "AKIA5I5Z7ZLKXDHPA66D", // generated ethereal user
+    pass: "BBCo/xEdvuD4C53w4eF+cBGSx+S+i39UFxZpNBajOyvG", // generated ethereal password
+  }
+});
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
 port = process.env.PORT || 3000;
 app.use(compression())
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -74,8 +88,79 @@ mongoUtil.connectToServer(function (err, client) {
     insertObj.age = req.body.age;
     insertObj.dose = req.body.dose;
     insertObj.isActive=true;
-    // console.log(insertObj)
-    // console.log(req.body)
+    
+    emailPromiseArray.push(
+      sendMail({
+        from: 'support@notifyslot.in',
+        to: insertObj.email,
+        subject: `ThankYou For Registration in NotifySlot.in`,
+        html: `<style>
+      .even {
+        background: transparent !important;
+        color: white !important;
+      }
+    .im{
+      color:white !important;
+    }
+      thead {
+        color: #FFFFFF;
+        font-family: Arial, sans-serif;
+    
+      }
+    
+      th {
+        font-weight: 300 !important;
+      }
+    
+      .even>.sorting_1 {
+        background: transparent !important;
+        color: white !important;
+      }
+    
+      .odd>.sorting_1 {
+        background: transparent !important;
+        color: white !important;
+      }
+    
+      .odd {
+        background: transparent !important;
+        color: white !important;
+      }
+    </style>
+    
+    <div class="container-fluid" style="height:100%;overflow:scroll;padding:20px;background: linear-gradient(to top left, #3a6186, #89253e);color:white;height:100% 
+      !important;">
+      <div class="row">
+        <div class="col-lg-12">
+          <h4 style="font-weight:400 !important;">
+            <a class="" style="color: #FFFFFF;
+                      font-family: Arial, sans-serif;
+                    ">NotifySlot.in - The Co-WIN Slot Notifier <i class="fa fa-bell" aria-hidden="true"></i></a>
+          </h4><br><br>
+        </div>
+      </div>
+    
+      <div class="row">
+        <div class="col-lg-12">
+          Hi ${capitalizeFirstLetter(insertObj.name)},<br>
+          <br>
+          We hope you and your family members are safe at home, In this tough time we all are together in this.<br><br>
+    
+          ThankYou for registering in notifyslot.in, we will mail you as soon as slots are available in cowin portal.
+          <br>
+        </div>
+        </div>
+        
+    
+      <br>
+      </div>
+<div style="bottom:0;position:absolute;">
+
+      </div>
+
+      `
+      })
+    )
 
 
     try {
@@ -85,7 +170,9 @@ mongoUtil.connectToServer(function (err, client) {
       let rs1 = db.collection('district').find({ district: insertObj.district }).toArray(function (err, result) {
         if (err) throw err;
         //console.log(result);
+        mail.sendMail(emailPromiseArray,db);
         if (result.length > 0) {
+
           let tarr = result[0].detail;
           tarr.push({ name: insertObj.name, email: insertObj.email, notify: insertObj.notify });
           var newvalues = { $set: { detail: tarr } };

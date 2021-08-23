@@ -11,13 +11,12 @@ module.exports.Calculate = (db) => {
       if (err) throw err;
       if (err1) throw err1;
       //console.log(result)
-      var today = new Date();
-      today.setHours(today.getHours() + 5)
-      today.setMinutes(today.getMinutes() + 30)
-      var dd = today.getDate();
-
-      var mm = today.getMonth() + 1;
-      var yyyy = today.getFullYear();
+      var dateForCowinUrl = new Date();
+      dateForCowinUrl.setHours(dateForCowinUrl.getHours() + 5)
+      dateForCowinUrl.setMinutes(dateForCowinUrl.getMinutes() + 30)
+      var dd = dateForCowinUrl.getDate();
+      var mm = dateForCowinUrl.getMonth() + 1;
+      var yyyy = dateForCowinUrl.getFullYear();
       if (dd < 10) {
         dd = '0' + dd;
       }
@@ -26,14 +25,12 @@ module.exports.Calculate = (db) => {
         mm = '0' + mm;
       }
 
-      today = dd + '-' + mm + '-' + yyyy;
-      let uniqueId = new Map();
-      let districtCenterMap = getDistrictWiseMap(distresult, today).then(function (value) {
+      dateForCowinUrl = dd + '-' + mm + '-' + yyyy;
+      
+      let districtCenterMap = getDistrictWiseMap(distresult, dateForCowinUrl).then(function (value) {
         console.log("--------------------------------------------------------------")
         var currentdate = new Date();
 
-       // currentdate.setHours( currentdate.getHours() + 5)
-        //currentdate.setMinutes( currentdate.getMinutes() + 30)
         var options = { hour12: true };
 
         var current = currentdate.toLocaleString('en-IN', options);
@@ -169,7 +166,7 @@ module.exports.Calculate = (db) => {
     });
 
   });
-  async function getDistrictWiseMap(data, today) {
+  async function getDistrictWiseMap(data, dateForCowinUrl) {
     let myPromise = new Promise(function (myResolve, myReject) {
       let finalMap = new Map();
       let districtArray = []
@@ -193,7 +190,7 @@ module.exports.Calculate = (db) => {
       for (let obj of data) {
         console.log("Making Url district id :: " + obj.district)
         districtArray.push(obj.district);
-        let cowinUrl = `https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id=${obj.district}&date=${today}`
+        let cowinUrl = `https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id=${obj.district}&date=${dateForCowinUrl}`
        console.log("Url :: "+cowinUrl) 
         urls.push(cowinUrl)
       }
